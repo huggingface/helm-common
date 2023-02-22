@@ -1,0 +1,18 @@
+global:
+  huggingface:
+    imageRegistry: ""
+    imagePullSecrets: []
+    ingress:
+      domain: huggingface.co
+      ssl: true
+
+images:
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+  nginx:
+    useGlobalRegistry: false
+    repository: nginx
+    tag: "1.22"
+  appManager:
+    repository: spaces/app-manager
+    tag: latest

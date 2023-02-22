@@ -14,12 +14,12 @@ jobs:
       - name: Update version
         shell: bash
         run: |
-          sed -i 's/0.0.0/${{ github.ref_name }}/' charts/Chart.yaml
+          sed -i 's/0.0.0/${{ github.ref_name }}/' charts/common/Chart.yaml
 
       - name: Helm Publish
         uses: huggingface/helm-publish-action@latest
         with:
-          workingDirectory: charts
+          workingDirectory: charts/common
           tailscaleKey: ${{ secrets.TAILSCALE_AUTHKEY }}
           repository: https://registry.internal.huggingface.tech/chartrepo/charts
           username: ${{ secrets.REGISTRY_USERNAME }}

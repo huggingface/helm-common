@@ -4,12 +4,13 @@ Return the proper image name
 {{ include "common.images.image" ( dict "imageRoot" .Values.path.to.the.image "global" .Values.global ) }}
 */}}
 {{- define "hf.common.images.image" -}}
+{{- $useGlobalRegistry := or (not (hasKey .imageRoot "useGlobalRegistry")) .imageRoot.useGlobalRegistry -}}
 {{- $registryName := .imageRoot.registry -}}
 {{- $repositoryName := .imageRoot.repository -}}
 {{- $separator := ":" -}}
 {{- $termination := .imageRoot.tag | toString -}}
 {{- if .global }}
-    {{- if and .global.imageRegistry .imageRoot.useGlobalRegistry }}
+    {{- if and .global.imageRegistry $useGlobalRegistry }}
      {{- $registryName = .global.imageRegistry -}}
     {{- end -}}
 {{- end -}}
@@ -17,7 +18,11 @@ Return the proper image name
     {{- $separator = "@" -}}
     {{- $termination = .imageRoot.digest | toString -}}
 {{- end -}}
+{{- if $registryName -}}
 {{- printf "%s/%s%s%s" $registryName $repositoryName $separator $termination -}}
+{{- else -}}
+{{- printf "%s%s%s" $repositoryName $separator $termination -}}
+{{- end -}}
 {{- end -}}
 
 {{/*
