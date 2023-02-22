@@ -5,7 +5,7 @@
 
 Helm Chart containing our common functions
 
-# Usage
+## Usage
 
 Coming soon ...
 

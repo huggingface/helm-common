@@ -11,6 +11,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Update version
+        shell: bash
+        run: |
+          sed -i 's/0.0.0/${{ github.ref_name }}/' charts/Chart.yaml
+
       - name: Helm Publish
         uses: huggingface/helm-publish-action@latest
         with:
