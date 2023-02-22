@@ -13,6 +13,11 @@ images:
     useGlobalRegistry: false
     repository: nginx
     tag: "1.22"
+  admin:
+    registry: huggingface
+    useGlobalRegistry: false
+    repository: datasets-server-services-admin
+    tag: sha-27ad2f7
   appManager:
     repository: spaces/app-manager
     tag: latest

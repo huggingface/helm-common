@@ -2,10 +2,14 @@
 {{ include "hf.common.images.image" (dict "imageRoot" .Values.images.nginx "global" .Values.global.huggingface) | quote }}
 {{- end -}}
 
+{{- define "admin.image" -}}
+{{ include "hf.common.images.image" (dict "imageRoot" .Values.images.admin "global" .Values.global.huggingface) | quote }}
+{{- end -}}
+
 {{- define "appManager.image" -}}
 {{ include "hf.common.images.image" (dict "imageRoot" .Values.images.appManager "global" .Values.global.huggingface) | quote }}
 {{- end -}}
 
 {{- define "test.imagePullSecrets" -}}
-{{ include "hf.common.images.renderPullSecrets" (dict "images" (list .Values.images) "global" .Values.global.huggingface) }}
+{{ include "hf.common.images.renderPullSecrets" (dict "images" (list .Values.images) "context" $) }}
 {{- end -}}

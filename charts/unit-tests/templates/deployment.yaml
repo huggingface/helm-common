@@ -16,6 +16,9 @@ spec:
         - name: test-public-image
           image: {{ include "nginx.image" . }}
           imagePullPolicy: {{ .Values.images.pullPolicy }}
+        - name: test-huggingface-public-image
+          image: {{ include "admin.image" . }}
+          imagePullPolicy: {{ .Values.images.pullPolicy }}
         - name: test-global-registry
           image: {{ include "appManager.image" . }}
           imagePullPolicy: {{ .Values.images.pullPolicy }}
