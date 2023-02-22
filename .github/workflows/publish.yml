@@ -4,6 +4,9 @@ on:
     types: [published]
 
 jobs:
+  ci_tests:
+    uses: ./.github/workflows/test.yml
+
   publish:
     name: Publish on registry
     runs-on: ubuntu-latest

@@ -1,6 +1,17 @@
 name: Unit Tests
 on:
   push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+  pull_request:
+  workflow_call:
+  workflow_dispatch:
+
+concurrency:
+  group: run-tests-group-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
