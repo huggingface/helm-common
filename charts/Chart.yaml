@@ -1,0 +1,5 @@
+apiVersion: v2
+name: common
+description: Common chart for Hugging Face
+type: library
+version: 0.1.0
