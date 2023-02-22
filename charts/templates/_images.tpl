@@ -17,7 +17,7 @@ Return the proper image name
     {{- $separator = "@" -}}
     {{- $termination = .imageRoot.digest | toString -}}
 {{- end -}}
-{{- printf "%s/%s%s%s" $registryName $repositoryName $separator $termination -}}
+{{- printf "%s/%s%s%s" $registryName $repositoryName $separator $termination | quote -}}
 {{- end -}}
 
 {{/*
