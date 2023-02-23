@@ -1,14 +1,14 @@
 {{/* vim: set filetype=mustache: */}}
 {{/*
 Return the proper image name
-{{ include "hf.common.images.image" ( dict "imageRoot" .Values.path.to.the.image "global" .Values.global ) }}
+{{ include "hf.common.images.image" ( dict "imageRoot" .Values.path.to.the.image "global" .Values.global "tag" .Chart.AppVersion ) }}
 */}}
 {{- define "hf.common.images.image" -}}
 {{- $useGlobalRegistry := or (not (hasKey .imageRoot "useGlobalRegistry")) .imageRoot.useGlobalRegistry -}}
 {{- $registryName := .imageRoot.registry -}}
 {{- $repositoryName := .imageRoot.repository -}}
 {{- $separator := ":" -}}
-{{- $termination := .imageRoot.tag | toString -}}
+{{- $termination := .imageRoot.tag | default .tag | toString -}}
 {{- if .global }}
     {{- if and .global.imageRegistry $useGlobalRegistry }}
      {{- $registryName = .global.imageRegistry -}}
