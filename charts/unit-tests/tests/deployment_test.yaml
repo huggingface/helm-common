@@ -65,6 +65,18 @@ tests:
           path: spec.template.spec.containers[2].image
           value: spaces/app-manager:latest
 
+  - it: deployment should have the correct image tag reflecting chart appVersion
+    values:
+      - test-values.yaml
+    template: deployment.yaml
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[3].name
+          value: hello-world
+      - equal:
+          path: spec.template.spec.containers[3].image
+          value: hello/world:1.0.0
+
   - it: deployment shouldn't have imagePullSecret
     values:
       - test-values.yaml

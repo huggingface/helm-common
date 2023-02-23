@@ -22,3 +22,6 @@ spec:
         - name: test-global-registry
           image: {{ include "appManager.image" . }}
           imagePullPolicy: {{ .Values.images.pullPolicy }}
+        - name: hello-world
+          image: {{ include "someApp.image" . }}
+          imagePullPolicy: {{ .Values.images.pullPolicy }}

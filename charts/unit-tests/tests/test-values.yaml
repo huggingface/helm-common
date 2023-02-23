@@ -21,3 +21,5 @@ images:
   appManager:
     repository: spaces/app-manager
     tag: latest
+  someApp:
+    repository: hello/world

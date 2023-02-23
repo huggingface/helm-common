@@ -1,14 +1,14 @@
 {{/* vim: set filetype=mustache: */}}
 {{/*
 Return the proper image name
-{{ include "hf.common.images.image" ( dict "imageRoot" .Values.path.to.the.image "global" .Values.global ) }}
+{{ include "hf.common.images.image" ( dict "imageRoot" .Values.path.to.the.image "global" .Values.global "tag" .Chart.AppVersion ) }}
 */}}
 {{- define "hf.common.images.image" -}}
 {{- $useGlobalRegistry := or (not (hasKey .imageRoot "useGlobalRegistry")) .imageRoot.useGlobalRegistry -}}
 {{- $registryName := .imageRoot.registry -}}
 {{- $repositoryName := .imageRoot.repository -}}
 {{- $separator := ":" -}}
-{{- $termination := .imageRoot.tag | toString -}}
+{{- $termination := .imageRoot.tag | default .tag | toString -}}
 {{- if .global }}
     {{- if and .global.imageRegistry $useGlobalRegistry }}
      {{- $registryName = .global.imageRegistry -}}
@@ -33,7 +33,7 @@ Return the proper Docker Image Registry Secret Names evaluating values as templa
   {{- $pullSecrets := list }}
   {{- $context := .context }}
 
-  {{- if $context.Values.global.huggingface }}
+  {{- if and $context $context.Values $context.Values.global $context.Values.global.huggingface $context.Values.global.huggingface.imagePullSecrets }}
     {{- range $context.Values.global.huggingface.imagePullSecrets -}}
       {{- $pullSecrets = append $pullSecrets (include "hf.common.tplvalues.render" (dict "value" . "context" $context)) -}}
     {{- end -}}
