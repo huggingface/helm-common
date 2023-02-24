@@ -7,6 +7,25 @@ Helm Chart containing our common functions
 
 ## Usage
 
+### How to install
+
+Add this chart to your chart dependencies.
+
+```
+apiVersion: v2
+name: my-chart
+description: Your Helm chart description
+icon: https://huggingface.co/front/assets/huggingface_logo-noborder.svg
+type: application
+version: 1.0.0
+appVersion: "latest"
+
+dependencies:
+  - name: common
+    version: x.x.x
+    repository: https://registry.internal.huggingface.tech/chartrepo/charts
+```
+
 ### Docker images management
 
 #### Use a public docker image
@@ -213,6 +232,25 @@ spec:
 ...
 ```
 
+### Labels management
+
+Use the common function to generate your resource labels.
+
+**`_helpers.yaml`**
+```yaml
+{{- define "yourComp.selectorLabels" -}}
+{{ include "hf.labels.commons" . }}
+app.kubernetes.io/component: your-component-name
+{{- end }}
+```
+
+**`deployment.yaml`**
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels: {{- include "yourComp.selectorLabels" . | nindent 4 }}
+```
 
 ## Credits
 
