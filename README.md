@@ -1,6 +1,5 @@
 # Hugging Face Common Helm Chart
 
-[![Version](https://img.shields.io/github/v/release/huggingface/helm-common?label=Release)](https://github.com/huggingface/helm-publish-action/releases)
 [![License](https://img.shields.io/badge/License-Apache_2.0-yellow.svg)](https://opensource.org/licenses/Apache-2.0)
 ![Tests](https://github.com/huggingface/helm-common/actions/workflows/test.yml/badge.svg)
 
