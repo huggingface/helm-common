@@ -19,11 +19,18 @@ jobs:
         run: |
           sed -i 's/0.0.0/${{ github.ref_name }}/' charts/common/Chart.yaml
 
-      - name: Helm Publish
+      - name: Publish on internal registry
         uses: huggingface/helm-publish-action@latest
         with:
           workingDirectory: charts/common
           tailscaleKey: ${{ secrets.TAILSCALE_AUTHKEY }}
-          repository: https://registry.internal.huggingface.tech/chartrepo/charts
+          repository: ${{ secrets.INTERNAL_REGISTRY_URL }}/chartrepo/charts
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Publish on public registry
+        shell: bash
+        run: |
+          helm package charts/common
+          helm registry login ghcr.io/huggingface/helm-common --username ${{ secrets.GH_USERNAME }} --password ${{ secrets.GH_PASSWORD }}
+          helm push common-${{ github.ref_name }}.tgz oci://ghcr.io/huggingface/helm-common
