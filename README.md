@@ -24,7 +24,23 @@ appVersion: "latest"
 dependencies:
   - name: common
     version: x.x.x
-    repository: https://registry.internal.huggingface.tech/chartrepo/charts
+    repository: https://HUGGINGFACE_PRIVATE_REGISTRY/chartrepo/charts
+```
+
+or if your project is open-source :
+
+```
+apiVersion: v2
+name: my-chart
+description: Your Helm chart description
+icon: https://huggingface.co/front/assets/huggingface_logo-noborder.svg
+type: application
+version: 1.0.0
+appVersion: "latest"
+dependencies:
+    - name: common
+      version: x.x.x
+      repository: oci://ghcr.io/huggingface/helm-common
 ```
 
 ### Docker images management
