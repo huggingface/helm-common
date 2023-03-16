@@ -25,13 +25,13 @@ jobs:
           cp README.md charts/common/README.md
 
       - name: Update version with release version
-        if: github.event_name == 'release' && github.event.action == 'created'
+        if: github.event_name == 'release' && github.event.action == 'published'
         shell: bash
         run: |
           sed -i 's/0.0.0/${{ github.ref_name }}/' charts/common/Chart.yaml
 
       - name: Update version with latest version
-        if: (github.event_name == 'release' && github.event.action == 'created') == false
+        if: (github.event_name == 'release' && github.event.action == 'published') == false
         shell: bash
         run: |
           sed -i 's/0.0.0/0.0.0-latest/' charts/common/Chart.yaml
