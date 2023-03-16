@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-yellow.svg)](https://opensource.org/licenses/Apache-2.0)
 ![Tests](https://github.com/huggingface/helm-common/actions/workflows/test.yml/badge.svg)
 
-Helm Chart containing our common functions
+Helm Chart containing Hugging Face common functions
 
 ## Usage
 
