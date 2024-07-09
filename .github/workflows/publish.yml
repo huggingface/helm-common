@@ -36,15 +36,6 @@ jobs:
         run: |
           sed -i 's/0.0.0/0.0.0-latest/' charts/common/Chart.yaml
 
-      - name: Publish on internal registry
-        uses: huggingface/helm-publish-action@latest
-        with:
-          workingDirectory: charts/common
-          tailscaleKey: ${{ secrets.TAILSCALE_AUTHKEY }}
-          repository: ${{ secrets.INTERNAL_REGISTRY_URL }}/chartrepo/charts
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-
       - name: Publish on public registry
         shell: bash
         run: |
