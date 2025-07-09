@@ -122,7 +122,7 @@ The common function will generate : `image: "huggingface/datasets-server:sha-27a
 #### Use a docker image from private registry (with global registry)
 
 To use a docker image from a global private registry.
-A global registry is usefull to avoid duplicate your registry for all your images.
+A global registry is useful to avoid duplicate your registry for all your images.
 
 **`values.yaml`**
 ```yaml
