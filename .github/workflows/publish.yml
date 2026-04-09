@@ -27,8 +27,10 @@ jobs:
       - name: Update version with release version
         if: github.event_name == 'release' && github.event.action == 'published'
         shell: bash
+        env:
+          REF_NAME: ${{ github.ref_name }}
         run: |
-          sed -i 's/0.0.0/${{ github.ref_name }}/' charts/common/Chart.yaml
+          sed -i "s/0.0.0/${REF_NAME}/" charts/common/Chart.yaml
 
       - name: Update version with latest version
         if: (github.event_name == 'release' && github.event.action == 'published') == false
@@ -38,7 +40,10 @@ jobs:
 
       - name: Publish on public registry
         shell: bash
+        env:
+          GH_USERNAME: ${{ secrets.GH_USERNAME }}
+          GH_PASSWORD: ${{ secrets.GH_PASSWORD }}
         run: |
           helm package charts/common
-          helm registry login ghcr.io/huggingface/helm-common --username ${{ secrets.GH_USERNAME }} --password ${{ secrets.GH_PASSWORD }}
+          echo "${GH_PASSWORD}" | helm registry login ghcr.io/huggingface/helm-common --username "${GH_USERNAME}" --password-stdin
           helm push common-*.tgz oci://ghcr.io/huggingface/helm-common
