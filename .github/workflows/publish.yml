@@ -12,6 +12,8 @@ jobs:
     uses: ./.github/workflows/test.yml
 
   publish:
+    permissions:
+      contents: read
     name: Publish on registry
     runs-on: ubuntu-latest
     needs: test
